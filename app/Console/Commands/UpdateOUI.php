@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
+//  adjustment to get the original script to work in current context
+
 class UpdateOUI extends Command
 {
     /**

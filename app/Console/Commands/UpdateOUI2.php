@@ -28,6 +28,7 @@ class UpdateOUI2 extends Command
      */
     public function handle(): void
     {
+        //  reset the table
         DB::table('mac_ouis')->truncate();
         $output = file_get_contents('https://standards-oui.ieee.org/oui/oui.csv');
         $output = explode(PHP_EOL, $output);
@@ -62,6 +63,7 @@ class UpdateOUI2 extends Command
                 $c++;
             }
         }
+        //  batch the inserts to work around the limits
         foreach(array_chunk($data, 10000) as $t)
         {
             mac_oui::insert($t);
