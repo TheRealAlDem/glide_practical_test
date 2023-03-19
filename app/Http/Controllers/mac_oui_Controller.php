@@ -82,6 +82,11 @@ class mac_oui_Controller extends Controller
     }
 
     //  second character 2, 6, A or E random
+    //  would have put this on line 64 and 24, then a condition to return a different response,
+    //      ie a valid mac address but a 'random 2nd character message', with the vendor void,
+    //      or incorporated the pattern into the check IsValidMacAddress
+    //      OR done a regex replace for the 2nd character, giving it a wildcard, then done a
+    //      'where like' on the regex replaced oui, depending on the requirements
     private function IsSecondCharacterRandom($macAddresOUI)
     {
         $patternToMatch = '/^[0-9a-fA-F](2|6|A|E)([0-9a-fA-F]{4})$/';
