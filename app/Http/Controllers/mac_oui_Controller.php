@@ -40,7 +40,6 @@ class mac_oui_Controller extends Controller
         }
     }
 
-    //  second character 2, 6, A or E random
     //  validate the macAddresses object
     //  check each one as we could well have a mix of valid / invalid
     //      and also, so we keep the order of the vendors as they are requested
@@ -82,11 +81,18 @@ class mac_oui_Controller extends Controller
         return response($vendorArray, 200);
     }
 
+    //  second character 2, 6, A or E random
+    private function IsSecondCharacterRandom($macAddresOUI)
+    {
+        $patternToMatch = '/^[0-9a-fA-F](2|6|A|E)([0-9a-fA-F]{4})$/';
+        return preg_match($patternToMatch, $macAddresOUI);
+    }
+
     //  didn't fit nicely into one pattern, so I separated them - easy to read
     private function IsValidMacAddress($macAddress): bool|int
     {
         //  eg, 00-11-22-00-11-A2 or 00:11:22:33:44:55
-        $patternToMatch1 = '/^([0-9a-f]{2}[-:]){5}[0-9a-f]{2}$/i';
+        $patternToMatch1 = '/^(?:[0-9a-f]{2}([-:]))(?:[0-9a-f]{2}\1){4}[0-9a-f]{2}$/i';
         //  eg, 0001.1122.2333
         $patternToMatch2 = '/^([0-9a-f]{4}[.]){2}[0-9a-f]{4}$/i';
         //  eg, 061122334455
